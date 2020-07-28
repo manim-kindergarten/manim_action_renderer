@@ -19,5 +19,5 @@ jobs:
         if: success()
         with:
           name: Videos
-          path: ${{ steps.renderer.outputs.video_paths }}
+          path: ${{ steps.renderer.outputs.video_path }}
           

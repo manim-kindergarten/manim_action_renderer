@@ -90,5 +90,11 @@ for sce in $scene_names; do
   cnt=$cnt+1
 done
 
+mkdir /github/workspace/outputs
+for file in $output; do
+  cp $file "/github/workspace/outputs/"
+done
+
 echo "All ${#output[@]} outputs: ${output[@]}"
-echo "::set-output name=video_paths::$output"
+ls /github/workspace/outputs
+echo "::set-output name=video_path::/github/workspace/outputs/*"
