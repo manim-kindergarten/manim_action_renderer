@@ -20,9 +20,9 @@ inputs:
     description: Install extra python packages by pip
   extra_system_packages:
     description: Install extra packages by apk
-  pre_compile:
+  pre_render:
     description: Arbitrary bash codes to be executed before rendering
-  post_compile:
+  post_render:
     description: Arbitrary bash codes to be executed after rendering
 runs:
   using: docker
@@ -34,5 +34,5 @@ runs:
     - ${{ inputs.manim_repo }}
     - ${{ inputs.extra_packages }}
     - ${{ inputs.extra_system_packages }}
-    - ${{ inputs.pre_compile }}
-    - ${{ inputs.post_compile }}
+    - ${{ inputs.pre_render }}
+    - ${{ inputs.post_render }}

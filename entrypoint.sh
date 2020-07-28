@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/bash
 
 set -e
 
@@ -21,8 +21,8 @@ args="${3}"
 manim_repo="${4}"
 extra_packages="${5}"
 extra_system_packages="${6}"
-pre_compile="${7}"
-post_compile="${8}"
+pre_render="${7}"
+post_render="${8}"
 
 if [[ -z "$source_file" ]]; then
   error "Input 'source_file' is missing."
@@ -63,16 +63,16 @@ if [[ -n "$extra_packages" ]]; then
   done
 fi
 
-if [[ -n "$pre_compile" ]]; then
+if [[ -n "$pre_render" ]]; then
   info "Run pre compile commands"
-  eval "$pre_compile"
+  eval "$pre_render"
 fi
 
 info "Rendering..."
 for pkg in $scene_names; do
   python manim.py "$source_file" "$pkg" "$args"
 done
-if [[ -n "$post_compile" ]]; then
+if [[ -n "$post_render" ]]; then
   info "Run post compile commands"
-  eval "$post_compile"
+  eval "$post_render"
 fi
