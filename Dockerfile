@@ -13,4 +13,4 @@ RUN apt-get update \
         tipa \
     && rm -rf /var/lib/apt/lists/*
 COPY entrypoint.sh /root/
-ENTRYPOINT ["/root/entrypoint.sh"]
+ENTRYPOINT ["sudo /root/entrypoint.sh"]
