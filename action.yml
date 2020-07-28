@@ -1,0 +1,38 @@
+name: Github Action for manim rendering
+description: GitHub Action to render manim videos
+author: Tony Wang
+inputs:
+  source_file:
+    description: The source user file to render videos from
+    required: true
+  scene_names:
+    description: The scene names you want to render in the source_file
+    required: true
+    default: "-a"
+  args:
+    description: Arguments to be passed to manim cli
+    required: true
+    default: "-w"
+  manim_repo:
+    description: The manim engine repo you want to use to render
+    default: "https://github.com/3b1b/manim"
+  extra_packages:
+    description: Install extra python packages by pip"
+  extra_system_packages:
+    description: Install extra packages by apk
+  pre_compile:
+    description: Arbitrary bash codes to be executed before rendering
+  post_compile:
+    description: Arbitrary bash codes to be executed after rendering
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.source_file }}
+    - ${{ inputs.scene_names }}
+    - ${{ inputs.args }}
+    - ${{ inputs.manim_repo }}
+    - ${{ inputs.extra_packages }}
+    - ${{ inputs.extra_system_packages }}
+    - ${{ inputs.pre_compile }}
+    - ${{ inputs.post_compile }}
