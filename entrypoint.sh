@@ -28,6 +28,20 @@ if [[ -z "$source_file" ]]; then
   error "Input 'source_file' is missing."
 fi
 
+info "Downloading system packages for manim"
+apt-get update && apt-get install -qqy --no-install-recommends \
+  apt-utils \
+  ffmpeg \
+  sox \
+  libcairo2-dev \
+  texlive \
+  texlive-fonts-extra \
+  texlive-latex-extra \
+  texlive-latex-recommended \
+  texlive-science \
+  tipa \
+&& rm -rf /var/lib/apt/lists/*
+
 info "Cloning $manim_repo ..."
 git clone "$manim_repo" manim --depth=1
 mv manim/* .
