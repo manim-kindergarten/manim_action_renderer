@@ -69,10 +69,26 @@ if [[ -n "$pre_render" ]]; then
 fi
 
 info "Rendering..."
-for pkg in $scene_names; do
-  python manim.py "$source_file" "$pkg" "$args"
+for sce in $scene_names; do
+  python manim.py "$source_file" "$sce" "$args"
+  if [ $? -ne 0]; then
+    exit 1
+  fi
 done
+
 if [[ -n "$post_render" ]]; then
   info "Run post compile commands"
   eval "$post_render"
 fi
+
+info "Searching outputs..."
+cnt=0
+videos_path="/github/workspace/media/videos/"
+for sce in $scene_names; do
+  video=$(find ${videos_path} -name "${sce}.mp4")
+  output[$cnt]=$video
+  cnt=$cnt+1
+done
+
+echo "All ${#output[@]} outputs: ${output[@]}"
+echo "::set-output name=video_paths::$output"
