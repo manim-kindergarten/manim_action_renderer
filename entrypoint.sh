@@ -71,7 +71,7 @@ fi
 info "Rendering..."
 for sce in $scene_names; do
   python manim.py "$source_file" "$sce" "$args"
-  if [ $? -ne 0]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
 done
@@ -91,7 +91,7 @@ for sce in $scene_names; do
 done
 
 mkdir /github/workspace/outputs
-for file in $output; do
+for file in ${output[@]}; do
   cp $file "/github/workspace/outputs/"
 done
 
