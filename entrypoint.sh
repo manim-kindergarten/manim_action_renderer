@@ -97,4 +97,4 @@ done
 
 echo "All ${#output[@]} outputs: ${output[@]}"
 ls /github/workspace/outputs
-echo "::set-output name=video_path::/github/workspace/outputs/*"
+echo "::set-output name=video_path::./outputs/*"
