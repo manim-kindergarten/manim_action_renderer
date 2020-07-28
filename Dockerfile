@@ -1,3 +1,3 @@
-FROM alpine:3.10
+FROM python:3.7
 COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["bash", "-l", "/entrypoint.sh"]
+ENTRYPOINT ["sh", "/entrypoint.sh"]
