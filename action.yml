@@ -15,7 +15,7 @@ inputs:
     default: -w
   manim_repo:
     description: The manim engine repo you want to use to render
-    default: https://github.com/3b1b/manim
+    default: https://github.com/manim-kindergarten/manim
   extra_packages:
     description: Install extra python packages by pip
   extra_system_packages:
