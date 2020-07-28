@@ -8,16 +8,16 @@ inputs:
   scene_names:
     description: The scene names you want to render in the source_file
     required: true
-    default: "-a"
+    default: -a
   args:
     description: Arguments to be passed to manim cli
     required: true
-    default: "-w"
+    default: -w
   manim_repo:
     description: The manim engine repo you want to use to render
-    default: "https://github.com/3b1b/manim"
+    default: https://github.com/3b1b/manim
   extra_packages:
-    description: Install extra python packages by pip"
+    description: Install extra python packages by pip
   extra_system_packages:
     description: Install extra packages by apk
   pre_compile:
