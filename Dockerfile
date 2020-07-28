@@ -12,9 +12,5 @@ RUN apt-get update \
         texlive-science \
         tipa \
     && rm -rf /var/lib/apt/lists/*
-COPY \
-  LICENSE \
-  README.md \
-  entrypoint.sh \
-  /root/
+COPY entrypoint.sh /root/
 ENTRYPOINT ["/root/entrypoint.sh"]
