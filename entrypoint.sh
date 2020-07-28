@@ -69,8 +69,9 @@ if [[ -n "$pre_compile" ]]; then
 fi
 
 info "Rendering..."
-python manim.py "$source_file" "$scene_names" "$args"
-
+for pkg in $scene_names; do
+  python manim.py "$source_file" "$pkg" "$args"
+done
 if [[ -n "$post_compile" ]]; then
   info "Run post compile commands"
   eval "$post_compile"
