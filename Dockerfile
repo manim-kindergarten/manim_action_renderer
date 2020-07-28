@@ -12,6 +12,6 @@ RUN apt-get update \
         texlive-science \
         tipa \
     && rm -rf /var/lib/apt/lists/*
-RUN chmod +x entrypoint.sh
+RUN apt-get install tree && tree .
 COPY entrypoint.sh /root/entrypoint.sh
 ENTRYPOINT ["/root/entrypoint.sh"]
