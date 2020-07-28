@@ -1,8 +1,8 @@
 FROM python:3.7
 RUN apt-get update \
     && apt-get install -qqy --no-install-recommends \
-        tree \
         apt-utils \
+        tree \
         ffmpeg \
         sox \
         libcairo2-dev \
@@ -13,6 +13,6 @@ RUN apt-get update \
         texlive-science \
         tipa \
     && rm -rf /var/lib/apt/lists/*
-RUN tree .
+RUN ls -al && tree . -L 4
 COPY entrypoint.sh /root/entrypoint.sh
 ENTRYPOINT ["/root/entrypoint.sh"]
