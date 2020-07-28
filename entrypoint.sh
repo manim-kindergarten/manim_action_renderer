@@ -34,7 +34,7 @@ apt-get update && apt-get install -qqy --no-install-recommends \
   ffmpeg \
   sox \
   libcairo2-dev \
-  texlive \
+  texlive-full \
   texlive-fonts-extra \
   texlive-latex-extra \
   texlive-latex-recommended \
