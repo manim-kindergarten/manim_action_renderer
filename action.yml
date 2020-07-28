@@ -39,3 +39,6 @@ runs:
     - ${{ inputs.extra_system_packages }}
     - ${{ inputs.pre_render }}
     - ${{ inputs.post_render }}
+branding:
+  icon: camera
+  color: blue
