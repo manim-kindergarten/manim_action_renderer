@@ -24,6 +24,9 @@ inputs:
     description: Arbitrary bash codes to be executed before rendering
   post_render:
     description: Arbitrary bash codes to be executed after rendering
+outputs:
+  video_path:
+    description: The video folder path of rendered videos
 runs:
   using: docker
   image: Dockerfile
