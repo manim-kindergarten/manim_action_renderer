@@ -60,6 +60,7 @@ if [[ -n "$extra_packages" ]]; then
   for pkg in $extra_packages; do
     info "Installing $pkg by pip..."
     python -m pip install "$pkg"
+  done
 fi
 
 if [[ -n "$pre_compile" ]]; then
