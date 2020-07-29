@@ -15,7 +15,7 @@ It runs on [a docker image](https://github.com/manim-kindergarten/manim_texlive_
 
     **Required**, the source file with the scenes you want to render (relative to the current repo). E.g.:
     ```yaml
-    -uses: manim-kindergarten/manim_action_renderer@master
+    - uses: manim-kindergarten/manim_action_renderer@master
       with:
         source_file: path/to/your/file.py
     ```
@@ -35,6 +35,10 @@ It runs on [a docker image](https://github.com/manim-kindergarten/manim_texlive_
     This can be changed to https://github.com/ManimCommunity/manim now. <br/>
     But at present, this will throw an error when set to https://github.com/3b1b/manim .
 
+* `community_ver`
+
+    Whether the manim repo is a community version (e.g. a fork of ManimCommunity/manim) or not. The default is false.
+
 * `extra_packages`
 
     Additional python modules that need to be used, use `pip` to install them. Use a space to separate every two, e.g.: `"packageA packageB"`.
@@ -42,6 +46,10 @@ It runs on [a docker image](https://github.com/manim-kindergarten/manim_texlive_
 * `extra_system_packages`
 
     The system packages that need to be used, use the `apk` to install them.
+
+* `extra_repos`
+
+    Extra repositories you want to clone to the current workspace. Use a space to separate every two repos.
 
 * `pre_render`
 

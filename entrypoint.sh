@@ -25,13 +25,13 @@ pre_render="${7}"
 post_render="${8}"
 merge_assets="${9}"
 fonts_dir="${10}"
+extra_repos="${11}"
+community="${12}"
 
 if [[ "$manim_repo" == "https://github.com/ManimCommunity/manim" || "$manim_repo" == "https://github.com/ManimCommunity/manim/" ]]; then
   community=true
-else
-  community=false
 fi
-echo $community
+echo "Community? $community"
 
 if [[ -z "$source_file" ]]; then
   error "Input 'source_file' is missing."
@@ -69,7 +69,7 @@ merge() {
   fi
 }
 
-if [[ $merge_assets && $community == false ]]; then
+if [[ $merge_assets == true && $community == false ]]; then
   merge "assets/" "manim/assets/"
 fi
 
@@ -97,6 +97,13 @@ if [[ -n "$extra_packages" ]]; then
   for pkg in $extra_packages; do
     info "Installing $pkg by pip..."
     python -m pip install "$pkg"
+  done
+fi
+
+if [[ -n "$extra_packages" ]]; then
+  for repo in $extra_repos; do
+    info "Cloning $repo by git..."
+    git clone "$repo" --depth=1
   done
 fi
 

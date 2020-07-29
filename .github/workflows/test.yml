@@ -15,6 +15,7 @@ jobs:
           scene_names: "WriteStuff"
           args: "--high_quality"
           fonts_dir: test/fonts/
+          extra_repos: "https://github.com/manim-kindergarten/manim_sandbox"
       - name: Save output as artifacts
         uses: actions/upload-artifact@v2
         if: success()
@@ -34,6 +35,7 @@ jobs:
           args: "--high_quality"
           fonts_dir: test/fonts/
           manim_repo: "https://github.com/ManimCommunity/manim"
+          community_ver: true
       - name: Save output as artifacts
         uses: actions/upload-artifact@v2
         if: success()

@@ -1,5 +1,5 @@
 from manimlib.imports import *
-
+from manim_sandbox.utils.imports import *
 
 class WriteStuff(Scene):
     def construct(self):
