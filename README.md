@@ -62,15 +62,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      -uses: actions/checkout@v2
-      -name: Rendering Scenes
+      - uses: actions/checkout@v2
+      - name: Rendering Scenes
         uses: manim-kindergarten/manim_action_renderer@master
         id: renderer
         with:
           source_file: example_scenes.py
           scene_names: "OpeningManimExample WriteStuff"
           args: "--high_quality"
-      -name: Save output as artifacts
+      - name: Save output as artifacts
         uses: actions/upload-artifact@v2
         with:
           name: Videos
