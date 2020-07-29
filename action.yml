@@ -46,3 +46,6 @@ runs:
     - ${{ inputs.post_render }}
     - ${{ inputs.merge_assets }}
     - ${{ inputs.fonts_dir }}
+branding:
+  icon: camera
+  color: blue
