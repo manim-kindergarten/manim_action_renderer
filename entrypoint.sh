@@ -115,14 +115,14 @@ fi
 info "Rendering..."
 if [[ $community == true ]]; then
   for sce in $scene_names; do
-    python -m manim "$source_file" "$sce" "$args"
+    python -m manim "$source_file" "$sce" "${args[@]}"
     if [ $? -ne 0 ]; then
       error "manim render error"
     fi
   done
 else
   for sce in $scene_names; do
-    python manim.py "$source_file" "$sce" "$args"
+    python manim.py "$source_file" "$sce" "${args[@]}"
     if [ $? -ne 0 ]; then
       error "manim render error"
     fi
