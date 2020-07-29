@@ -138,7 +138,7 @@ info "Searching outputs..."
 cnt=0
 videos_path="/github/workspace/media/videos/"
 for sce in $scene_names; do
-  video=$(find ${videos_path} -name "${sce}.mp4")
+  video=$(find ${videos_path} -name "${sce}.mp4" -o -name "${sce}.mov" -o -name "${sce}.png")
   output[$cnt]=$video
   cnt=$cnt+1
 done

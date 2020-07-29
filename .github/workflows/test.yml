@@ -42,4 +42,23 @@ jobs:
         with:
           name: Videos_cmver
           path: ${{ steps.renderer.outputs.video_path }}
-          
+  test-other-types:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test rendering example_scenes.py
+        uses: ./
+        id: renderer
+        with:
+          source_file: test/example_scenes.py
+          scene_names: "WriteStuff"
+          args: "--high_quality -t -s"
+          fonts_dir: test/fonts/
+          extra_repos: "https://github.com/manim-kindergarten/manim_sandbox"
+      - name: Save output as artifacts
+        uses: actions/upload-artifact@v2
+        if: success()
+        with:
+          name: Videos_mkver
+          path: ${{ steps.renderer.outputs.video_path }}
+  
