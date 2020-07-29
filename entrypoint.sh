@@ -23,17 +23,68 @@ extra_packages="${5}"
 extra_system_packages="${6}"
 pre_render="${7}"
 post_render="${8}"
+merge_assets="${9}"
+fonts_dir="${10}"
+
+if [[ "$manim_repo" == "https://github.com/ManimCommunity/manim" || "$manim_repo" == "https://github.com/ManimCommunity/manim/" ]]; then
+  community=true
+else
+  community=false
+fi
+echo $community
 
 if [[ -z "$source_file" ]]; then
   error "Input 'source_file' is missing."
 fi
 
+if [[ -n $fonts_dir ]]; then
+  info "Adding fonts..."
+  cp -r "$fonts_dir" /usr/share/fonts/custom
+  ls /usr/share/fonts/custom
+  apt install fontconfig -y
+  mkfontscale
+  mkfontdir
+  fc-cache -fv
+fi
+
 info "Cloning $manim_repo ..."
-git clone "$manim_repo" manim --depth=1
-mv manim/* .
+if [[ $community == true ]]; then
+  git clone "$manim_repo" manimcm --depth=1
+else
+  git clone "$manim_repo" manim --depth=1
+fi
+
+merge() {
+  if [[ -e $1 && -e $2 ]]; then
+    for i in $(ls $2); do
+      if [[ -e "$1$i" ]]; then
+        if [[ -d "$1$i" ]]; then
+          merge "$1$i/" "$2$i/"
+        fi
+      else
+        mv "$2$i" "$1$i"
+      fi
+    done
+    rm -rf "$2"
+  fi
+}
+
+if [[ $merge_assets && $community == false ]]; then
+  merge "assets/" "manim/assets/"
+fi
+
+if [[ $community == true ]]; then
+  mv manimcm/* .
+else
+  mv manim/* .
+fi
 
 info "Installing requirements of manim..."
-python -m pip install -r requirements.txt
+if [[ community == true ]]; then
+  python -m pip install -e .
+else
+  python -m pip install -r requirements.txt
+fi
 
 if [[ -n "$extra_system_packages" ]]; then
   for pkg in $extra_system_packages; do
@@ -55,12 +106,21 @@ if [[ -n "$pre_render" ]]; then
 fi
 
 info "Rendering..."
-for sce in $scene_names; do
-  python manim.py "$source_file" "$sce" "$args"
-  if [ $? -ne 0 ]; then
-    exit 1
-  fi
-done
+if [[ $community == true ]]; then
+  for sce in $scene_names; do
+    python -m manim "$source_file" "$sce" "$args"
+    if [ $? -ne 0 ]; then
+      error "manim render error"
+    fi
+  done
+else
+  for sce in $scene_names; do
+    python manim.py "$source_file" "$sce" "$args"
+    if [ $? -ne 0 ]; then
+      error "manim render error"
+    fi
+  done
+fi
 
 if [[ -n "$post_render" ]]; then
   info "Run post compile commands"
