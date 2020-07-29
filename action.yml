@@ -24,6 +24,9 @@ inputs:
     description: Arbitrary bash codes to be executed before rendering
   post_render:
     description: Arbitrary bash codes to be executed after rendering
+  merge_assets:
+    description: If two repo both has assets/ merge it
+    default: true
 outputs:
   video_path:
     description: The video folder path of rendered videos
@@ -39,3 +42,4 @@ runs:
     - ${{ inputs.extra_system_packages }}
     - ${{ inputs.pre_render }}
     - ${{ inputs.post_render }}
+    - ${{ inputs.merge_assets }}

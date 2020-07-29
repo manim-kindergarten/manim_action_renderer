@@ -23,6 +23,7 @@ extra_packages="${5}"
 extra_system_packages="${6}"
 pre_render="${7}"
 post_render="${8}"
+merge_assets="${9}"
 
 if [[ -z "$source_file" ]]; then
   error "Input 'source_file' is missing."
@@ -30,6 +31,26 @@ fi
 
 info "Cloning $manim_repo ..."
 git clone "$manim_repo" manim --depth=1
+
+merge() {
+  if [[ -e $1 && -e $2 ]]; then
+    for i in $(ls $2); do
+      if [[ -e "$1$i" ]]; then
+        if [[ -d "$1$i" ]]; then
+          merge "$1$i/" "$2$i/"
+        fi
+      else
+        mv "$2$i" "$1$i"
+      fi
+    done
+    rm -rf "$2"
+  fi
+}
+
+if [[ $merge_assets ]]; then
+  merge "assets/" "manim/assets/"
+fi
+
 mv manim/* .
 
 info "Installing requirements of manim..."
