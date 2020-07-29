@@ -29,7 +29,8 @@
 * `manim_repo`
 
     渲染视频时需要使用的manim存储库，默认为https://github.com/manim-kindergarten/manim （推荐，因为可以即拿即用）<br/>
-    [WIP]可以改为 https://github.com/3b1b/manim 或 https://github.com/ManimCommunity/manim ，目前因为没有做适配会出错。
+    可以改为任何manim源码的repo（确保可以直接运行，并且含有文件`manim.py`以使用`python manim.py ... ...`命令）<br/>
+    目前支持 https://github.com/ManimCommunity/manim ，但无法使用https://github.com/3b1b/manim
 
 * `extra_packages`
 
@@ -46,6 +47,14 @@
 * `post_render`
 
     在渲染后要执行的shell命令。
+    
+* `merge_assets`
+
+    在当前repo和manim repo同时含有assets文件夹时是否将素材合并，默认为true。**注意**，如果改为false，可能会报错。
+    
+* `fonts_dir`
+
+    视频中需要的额外字体ttf文件所在文件夹在当前文件夹中的相对路径，将在渲染前自动安装。
 
 ## 输出Outputs
 
