@@ -34,7 +34,6 @@ if [[ -n $fonts_dir ]]; then
   info "Adding fonts..."
   cp -r "$fonts_dir" /usr/share/fonts/custom
   ls /usr/share/fonts/custom
-  apt install ttf-mscorefonts-installer -y
   apt install fontconfig -y
   mkfontscale
   mkfontdir
