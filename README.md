@@ -31,7 +31,9 @@ It runs on [a docker image](https://github.com/manim-kindergarten/manim_texlive_
 * `manim_repo`
 
     The manim repository that needs to be used when rendering the video, the default is https://github.com/manim-kindergarten/manim (recommended, because it can be used without changes)<br/>
-    [WIP] this can be changed to https://github.com/3b1b/manim or https://github.com/ManimCommunity/manim. But at present, this will throw an error because there is no adaptation.
+    You can set it to any repo you want (make sure it can be used wihout changes and through command `python manim.py ... ...`)<br/>
+    This can be changed to https://github.com/ManimCommunity/manim now. <br/>
+    But at present, this will throw an error when set to https://github.com/3b1b/manim .
 
 * `extra_packages`
 
@@ -48,6 +50,14 @@ It runs on [a docker image](https://github.com/manim-kindergarten/manim_texlive_
 * `post_render`
 
     The shell command to be executed after rendering.
+
+* `merge_assets`
+
+    Whether merge the two assets/ folder when both the current repo and manim repo have assets/. The default is `true`, **notice**, if it is set to false, it may cause error if there are two assets.
+    
+* `fonts_dir`
+
+    The extra font files dir relative to the current repo. They will be installed automatically.
 
 ## Outputs
 
