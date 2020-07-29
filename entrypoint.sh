@@ -24,9 +24,21 @@ extra_system_packages="${6}"
 pre_render="${7}"
 post_render="${8}"
 merge_assets="${9}"
+fonts_dir="${10}"
 
 if [[ -z "$source_file" ]]; then
   error "Input 'source_file' is missing."
+fi
+
+if [[ -n $fonts_dir ]]; then
+  info "Adding fonts..."
+  cp -r "$fonts_dir" /usr/share/fonts/custom
+  ls /usr/share/fonts/custom
+  apt install ttf-mscorefonts-installer -y
+  apt install fontconfig -y
+  mkfontscale
+  mkfontdir
+  fc-cache -fv
 fi
 
 info "Cloning $manim_repo ..."

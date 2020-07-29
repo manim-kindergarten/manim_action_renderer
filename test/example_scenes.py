@@ -3,9 +3,9 @@ from manimlib.imports import *
 
 class WriteStuff(Scene):
     def construct(self):
-        example_text = TextMobject(
+        example_text = Text(
             "This is some text",
-            tex_to_color_map={"text": YELLOW}
+            font="Consolas"
         )
         example_tex = TexMobject(
             "\\sum_{k=1}^\\infty {1 \\over k^2} = {\\pi^2 \\over 6}",

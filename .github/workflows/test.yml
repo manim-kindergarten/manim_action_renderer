@@ -14,6 +14,7 @@ jobs:
           source_file: test/example_scenes.py
           scene_names: "WriteStuff"
           args: "--high_quality"
+          fonts_dir: test/fonts/
       - name: Save output as artifacts
         uses: actions/upload-artifact@v2
         if: success()
