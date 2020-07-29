@@ -26,6 +26,13 @@ post_render="${8}"
 merge_assets="${9}"
 fonts_dir="${10}"
 
+info "Installing requirements of manim..."
+if [[ "$manim_repo" -eq "https://github.com/ManimCommunity/manim" || "$manim_repo" -eq "https://github.com/ManimCommunity/manim/" ]]; then
+  community=true
+else
+  community=false
+fi
+
 if [[ -z "$source_file" ]]; then
   error "Input 'source_file' is missing."
 fi
@@ -41,7 +48,11 @@ if [[ -n $fonts_dir ]]; then
 fi
 
 info "Cloning $manim_repo ..."
-git clone "$manim_repo" manim --depth=1
+if [[ $community == true ]]; then
+  git clone "$manim_repo" manimcm --depth=1
+else
+  git clone "$manim_repo" manim --depth=1
+fi
 
 merge() {
   if [[ -e $1 && -e $2 ]]; then
@@ -58,17 +69,14 @@ merge() {
   fi
 }
 
-if [[ $merge_assets ]]; then
+if [[ $merge_assets && $community == false ]]; then
   merge "assets/" "manim/assets/"
 fi
 
-mv manim/* .
-
-info "Installing requirements of manim..."
-if [[ "$manim_repo" -eq "https://github.com/ManimCommunity/manim" || "$manim_repo" -eq "https://github.com/ManimCommunity/manim/" ]]; then
-  community=true
+if [[ $community == true ]]; then
+  mv manimcm/* .
 else
-  community=false
+  mv manim/* .
 fi
 
 if [[ community == true ]]; then
