@@ -100,7 +100,7 @@ if [[ -n "$extra_packages" ]]; then
   done
 fi
 
-if [[ -n "$extra_packages" ]]; then
+if [[ -n "$extra_repos" ]]; then
   for repo in $extra_repos; do
     info "Cloning $repo by git..."
     git clone "$repo" --depth=1
