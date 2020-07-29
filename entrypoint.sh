@@ -26,7 +26,6 @@ post_render="${8}"
 merge_assets="${9}"
 fonts_dir="${10}"
 
-info "Installing requirements of manim..."
 if [[ "$manim_repo" == "https://github.com/ManimCommunity/manim" || "$manim_repo" == "https://github.com/ManimCommunity/manim/" ]]; then
   community=true
 else
@@ -80,6 +79,7 @@ else
   mv manim/* .
 fi
 
+info "Installing requirements of manim..."
 if [[ community == true ]]; then
   python -m pip install -e .
 else
@@ -108,7 +108,7 @@ fi
 info "Rendering..."
 if [[ $community == true ]]; then
   for sce in $scene_names; do
-    manim "$source_file" "$sce" "$args"
+    python -m manim "$source_file" "$sce" "$args"
     if [ $? -ne 0 ]; then
       error "manim render error"
     fi
