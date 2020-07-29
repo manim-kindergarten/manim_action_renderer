@@ -65,7 +65,17 @@ fi
 mv manim/* .
 
 info "Installing requirements of manim..."
-python -m pip install -r requirements.txt
+if [[ "$manim_repo" -eq "https://github.com/ManimCommunity/manim" || "$manim_repo" -eq "https://github.com/ManimCommunity/manim/" ]]; then
+  community=true
+else
+  community=false
+fi
+
+if [[ community == true ]]; then
+  python -m pip install -e .
+else
+  python -m pip install -r requirements.txt
+fi
 
 if [[ -n "$extra_system_packages" ]]; then
   for pkg in $extra_system_packages; do
@@ -87,12 +97,21 @@ if [[ -n "$pre_render" ]]; then
 fi
 
 info "Rendering..."
-for sce in $scene_names; do
-  python manim.py "$source_file" "$sce" "$args"
-  if [ $? -ne 0 ]; then
-    exit 1
-  fi
-done
+if [[ $community == true ]]; then
+  for sce in $scene_names; do
+    manim "$source_file" "$sce" "$args"
+    if [ $? -ne 0 ]; then
+      error "manim render error"
+    fi
+  done
+else
+  for sce in $scene_names; do
+    python manim.py "$source_file" "$sce" "$args"
+    if [ $? -ne 0 ]; then
+      error "manim render error"
+    fi
+  done
+fi
 
 if [[ -n "$post_render" ]]; then
   info "Run post compile commands"
