@@ -27,11 +27,12 @@ merge_assets="${9}"
 fonts_dir="${10}"
 
 info "Installing requirements of manim..."
-if [[ "$manim_repo" -eq "https://github.com/ManimCommunity/manim" || "$manim_repo" -eq "https://github.com/ManimCommunity/manim/" ]]; then
+if [[ "$manim_repo" == "https://github.com/ManimCommunity/manim" || "$manim_repo" == "https://github.com/ManimCommunity/manim/" ]]; then
   community=true
 else
   community=false
 fi
+echo $community
 
 if [[ -z "$source_file" ]]; then
   error "Input 'source_file' is missing."
