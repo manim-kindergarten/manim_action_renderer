@@ -16,10 +16,15 @@ inputs:
   manim_repo:
     description: The manim engine repo you want to use to render
     default: https://github.com/manim-kindergarten/manim
+  community_ver:
+    description: Whether the manim repo is a fork of ManimCommunity/manim or not
+    default: false
   extra_packages:
     description: Install extra python packages by pip
   extra_system_packages:
     description: Install extra packages by apk
+  extra_repos:
+    description: Clone extra repo to workspace
   pre_render:
     description: Arbitrary bash codes to be executed before rendering
   post_render:
@@ -46,6 +51,8 @@ runs:
     - ${{ inputs.post_render }}
     - ${{ inputs.merge_assets }}
     - ${{ inputs.fonts_dir }}
+    - ${{ inputs.extra_repos }}
+    - ${{ inputs.community_ver }}
 branding:
   icon: camera
   color: blue

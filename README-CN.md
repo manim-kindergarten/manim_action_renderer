@@ -32,6 +32,10 @@
     可以改为任何manim源码的repo（确保可以直接运行，并且含有文件`manim.py`以使用`python manim.py ... ...`命令）<br/>
     目前支持 https://github.com/ManimCommunity/manim ，但无法使用https://github.com/3b1b/manim
 
+* `community_ver`
+
+    使用的`manim_repo`是否是community版（比如一个ManimCommunity/manim的fork）
+
 * `extra_packages`
 
     需要用到的额外python模块，使用`pip`安装。每两个之间用空格隔开，例如：`"packageA packageB"`。
@@ -39,6 +43,10 @@
 * `extra_system_packages`
 
     需要用到的系统文件，使用`apk`安装。
+
+* `extra_repos`
+
+    需要clone到当前工作区的额外存储库，每两个之间用空格隔开。
 
 * `pre_render`
 

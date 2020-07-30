@@ -25,13 +25,13 @@ pre_render="${7}"
 post_render="${8}"
 merge_assets="${9}"
 fonts_dir="${10}"
+extra_repos="${11}"
+community="${12}"
 
 if [[ "$manim_repo" == "https://github.com/ManimCommunity/manim" || "$manim_repo" == "https://github.com/ManimCommunity/manim/" ]]; then
   community=true
-else
-  community=false
 fi
-echo $community
+echo "Community? $community"
 
 if [[ -z "$source_file" ]]; then
   error "Input 'source_file' is missing."
@@ -69,7 +69,7 @@ merge() {
   fi
 }
 
-if [[ $merge_assets && $community == false ]]; then
+if [[ $merge_assets == true && $community == false ]]; then
   merge "assets/" "manim/assets/"
 fi
 
@@ -100,6 +100,13 @@ if [[ -n "$extra_packages" ]]; then
   done
 fi
 
+if [[ -n "$extra_repos" ]]; then
+  for repo in $extra_repos; do
+    info "Cloning $repo by git..."
+    git clone "$repo" --depth=1
+  done
+fi
+
 if [[ -n "$pre_render" ]]; then
   info "Run pre compile commands"
   eval "$pre_render"
@@ -108,14 +115,14 @@ fi
 info "Rendering..."
 if [[ $community == true ]]; then
   for sce in $scene_names; do
-    python -m manim "$source_file" "$sce" "$args"
+    python -m manim "$source_file" $sce ${args[@]}
     if [ $? -ne 0 ]; then
       error "manim render error"
     fi
   done
 else
   for sce in $scene_names; do
-    python manim.py "$source_file" "$sce" "$args"
+    python manim.py "$source_file" $sce ${args[@]}
     if [ $? -ne 0 ]; then
       error "manim render error"
     fi
@@ -131,7 +138,7 @@ info "Searching outputs..."
 cnt=0
 videos_path="/github/workspace/media/videos/"
 for sce in $scene_names; do
-  video=$(find ${videos_path} -name "${sce}.mp4")
+  video=$(find ${videos_path} -name "${sce}.mp4" -o -name "${sce}.mov" -o -name "${sce}.png")
   output[$cnt]=$video
   cnt=$cnt+1
 done
