@@ -1,4 +1,4 @@
-# manim_action_renderer
+[![logo](test/header.png)](https://github.com/manim-kindergarten/manim_action_renderer)
 
 [![Test Github Action](https://github.com/manim-kindergarten/manim_action_renderer/workflows/Test%20Github%20Action/badge.svg)](https://github.com/manim-kindergarten/manim_action_renderer/actions)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://choosealicense.com/licenses/mit/)
@@ -20,7 +20,15 @@
 
 * `scene_names`
 
-    在源文件中想要渲染的场景名，字符串形式，多个场景需要用空格隔开。默认为全部渲染。
+    在源文件中想要渲染的场景名，字符串形式。默认为全部渲染。多个场景需要用空格隔开，或写成多行，例如：
+    ```yaml
+    - uses: manim-kindergarten/manim_action_renderer@master
+      with:
+        source_file: path/to/your/file.py
+        scene_names: |
+          SceneName1
+          SceneName2
+    ```
 
 * `args`
 
@@ -38,7 +46,14 @@
 
 * `extra_packages`
 
-    需要用到的额外python模块，使用`pip`安装。每两个之间用空格隔开，例如：`"packageA packageB"`。
+    需要用到的额外python模块，使用`pip`安装。每两个之间用空格隔开，或写成多行，例如：`"packageA packageB"`，或：
+    ```yaml
+    - uses: manim-kindergarten/manim_action_renderer@master
+      with:
+        extra_packages: |
+          packageA
+          packageB
+    ```
 
 * `extra_system_packages`
 
@@ -46,7 +61,7 @@
 
 * `extra_repos`
 
-    需要clone到当前工作区的额外存储库，每两个之间用空格隔开。
+    需要clone到当前工作区的额外存储库，每两个之间用空格隔开，或写成多行。
 
 * `pre_render`
 
@@ -62,7 +77,7 @@
     
 * `fonts_dir`
 
-    视频中需要的额外字体ttf文件所在文件夹在当前文件夹中的相对路径，将在渲染前自动安装。
+    视频中需要的额外字体ttf文件所在文件夹在当前文件夹中的相对路径，将在渲染前自动安装文件夹中的字体。
 
 ## 输出Outputs
 
@@ -83,7 +98,9 @@ jobs:
         id: renderer
         with:
           source_file: example_scenes.py
-          scene_names: "OpeningManimExample WriteStuff"
+          scene_names: |
+            OpeningManimExample 
+            WriteStuff
           args: "--high_quality"
       - name: Save output as artifacts
         uses: actions/upload-artifact@v2
@@ -92,7 +109,7 @@ jobs:
           path: ${{ steps.renderer.outputs.video_path }}
 ```
 
-由于安装依赖和渲染耗时等原因，开始渲染场景之前需要5分钟左右的时间<br/>
+由于拉拽镜像，安装依赖等原因，开始渲染场景之前需要4分钟左右的时间<br/>
 最终生成的视频文件将投放至该Action运行页面的artifacts部分（国内下载较慢）
 
 ## 许可证License

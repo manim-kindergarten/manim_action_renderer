@@ -1,4 +1,4 @@
-# manim_action_renderer
+[![logo](test/header.png)](https://github.com/manim-kindergarten/manim_action_renderer)
 
 [![Test Github Action](https://github.com/manim-kindergarten/manim_action_renderer/workflows/Test%20Github%20Action/badge.svg)](https://github.com/manim-kindergarten/manim_action_renderer/actions)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://choosealicense.com/licenses/mit/)
@@ -22,7 +22,15 @@ It runs on [a docker image](https://github.com/manim-kindergarten/manim_texlive_
 
 * `scene_names`
 
-    The name of the scenes to be rendered in the source file, in the form of a string, multiple scenes need to be separated by spaces in `""`. The default is to render all (with a `-a` flag).
+    The name of the scenes to be rendered in the source file, in the form of a string. The default is to render all (with a `-a` flag). Multiple scenes need to be separated by spaces in `""` or write them in multiple lines, e.g.:
+    ```yaml
+    - uses: manim-kindergarten/manim_action_renderer@master
+      with:
+        source_file: path/to/your/file.py
+        scene_names: |
+          SceneName1
+          SceneName2
+    ```
 
 * `args`
 
@@ -41,7 +49,14 @@ It runs on [a docker image](https://github.com/manim-kindergarten/manim_texlive_
 
 * `extra_packages`
 
-    Additional python modules that need to be used, use `pip` to install them. Use a space to separate every two, e.g.: `"packageA packageB"`.
+    Additional python modules that need to be used, use `pip` to install them. Use a space to separate every two or write them in multiple lines, e.g.: `"packageA packageB"` or :
+    ```yaml
+    - uses: manim-kindergarten/manim_action_renderer@master
+      with:
+        extra_packages: |
+          packageA
+          packageB
+    ```
 
 * `extra_system_packages`
 
@@ -49,7 +64,7 @@ It runs on [a docker image](https://github.com/manim-kindergarten/manim_texlive_
 
 * `extra_repos`
 
-    Extra repositories you want to clone to the current workspace. Use a space to separate every two repos.
+    Extra repositories you want to clone to the current workspace. Use a space to separate every two repos, or write them in multiple lines.
 
 * `pre_render`
 
@@ -86,8 +101,10 @@ jobs:
         id: renderer
         with:
           source_file: example_scenes.py
-          scene_names: "OpeningManimExample WriteStuff"
-          args: "--high_quality"
+          scene_names: |
+            OpeningManimExample
+            WriteStuff
+        args: "--high_quality"
       - name: Save output as artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -95,7 +112,7 @@ jobs:
           path: ${{ steps.renderer.outputs.video_path }}
 ```
 
-Due to installation dependencies and time-consuming rendering, it takes about 5 minutes before starting to render the scenes<br/>
+Due to pull image from DockerHub, install dependencies, etc., it takes about 4 minutes before starting to render the scenes<br/>
 The final generated video file will be delivered to the artifacts part of the action running page.
 
 ## License
