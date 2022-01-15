@@ -104,7 +104,7 @@ jobs:
           scene_names: |
             OpeningManimExample
             WriteStuff
-        args: "--high_quality"
+          args: "--high_quality"
       - name: Save output as artifacts
         uses: actions/upload-artifact@v2
         with:
